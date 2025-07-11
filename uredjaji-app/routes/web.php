@@ -8,7 +8,15 @@ use App\Http\Controllers\DeviceController;
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
+
+
+    Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create');
+     Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
+    Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store'); 
+});
+
+Route::get('/test', function () {
+    return App\Http\Controllers\DeviceController::class;
 });
 
 Route::get('/', function () {

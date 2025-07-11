@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Device extends Model
 {
      protected $fillable = [
-        'name', 'type', 'location', 'connection_status', 'battery_status'
+        'name', 'type', 'location', 'connection_status', 'battery_status',
     ];
 
     public function users(): BelongsToMany

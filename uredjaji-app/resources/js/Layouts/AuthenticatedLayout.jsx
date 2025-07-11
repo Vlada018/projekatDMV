@@ -4,6 +4,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { InertiaLink } from '@inertiajs/inertia-react';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -36,6 +37,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                  active={route().current('devices.index')}
                                    >
                                       Uređaji
+                                    </NavLink>
+                                <NavLink
+                                   href={route('devices.create')}
+                                 active={route().current('devices.create')}
+                                   >
+                                      Dodaj
                                     </NavLink>
                             </div>
                         </div>
