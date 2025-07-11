@@ -24,9 +24,47 @@ class DeviceController extends Controller
 
     public function create()
     {
-        // Враћа страницу са формом за додавање
         return Inertia::render('Devices/Create');
     }
+
+    public function edit(Device $device)
+{
+    if (!Auth::user()->devices->contains($device)) {
+        abort(403);
+    }
+
+    return Inertia::render('Devices/Edit', [
+        'device' => $device
+    ]);
+}
+
+public function update(Request $request, Device $device)
+{
+    if (!Auth::user()->devices->contains($device)) {
+        abort(403);
+    }
+
+    $request->validate([
+        'name' => ['required', 'string', 'max:255', 'unique:devices,name,' . $device->id],
+        'type' => ['required', 'string', 'max:255'],
+        'location' => ['required', 'string', 'max:255'],
+    ]);
+
+    $device->update([
+        'name' => $request->name,
+        'type' => $request->type,
+        'location' => $request->location,
+    ]);
+
+    return redirect()->route('devices.index')->with('success', 'Uređaj izmenjen.');
+}
+
+public function destroy(Device $device)
+{
+    $device->delete();
+    return redirect()->route('devices.index')->with('success', 'Uređaj uspešno obrisan.');
+}
+
 
   public function store(Request $request)
 {

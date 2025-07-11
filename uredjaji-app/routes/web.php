@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\DeviceController;
 
+Route::resource('devices', DeviceController::class);
 
 Route::middleware(['auth'])->group(function () {
 
-
+    Route::get('/devices/{device}/edit', [DeviceController::class, 'edit'])->name('devices.edit');
+    Route::put('/devices/{device}', [DeviceController::class, 'update'])->name('devices.update');   
     Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create');
-     Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
+    Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
     Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store'); 
 });
 

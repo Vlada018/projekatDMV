@@ -20,6 +20,11 @@ export default function Index() {
 
 const [showForm, setShowForm] = useState(false);
 
+const [editingDevice, setEditingDevice] = useState(null);
+
+const [deviceToDelete, setDeviceToDelete] = useState(null);
+
+
 
 const submit = (e) => {
     e.preventDefault();
@@ -41,18 +46,106 @@ const submit = (e) => {
     >
         {showForm ? 'Zatvori formu' : 'Dodaj uređaj'}
     </button>
-    <button
-        disabled
-        className="bg-yellow-400 text-white px-4 py-2 rounded opacity-50"
+    <div className="mb-4">
+    <label className="block font-bold mb-2">Izaberi uređaj za izmenu:</label>
+    <select
+        className="border p-2 rounded w-full"
+        onChange={(e) => {
+            const selectedId = e.target.value;
+            const selectedDevice = devices.data.find(d => d.id == selectedId);
+            setEditingDevice(selectedDevice);
+        }}
     >
-        Izmeni (uskoro)
-    </button>
-    <button
-        disabled
-        className="bg-red-500 text-white px-4 py-2 rounded opacity-50"
+        <option value="">-- Izaberi uređaj --</option>
+        {devices.data.map(device => (
+            <option key={device.id} value={device.id}>
+                {device.name}
+            </option>
+        ))}
+    </select>
+</div>
+{editingDevice && (
+    <form
+        onSubmit={(e) => {
+            e.preventDefault();
+           router.put(route('devices.update', editingDevice.id), editingDevice, {
+            onSuccess: () => {
+                setEditingDevice(null);
+            }
+        });
+        }}
+        className="bg-white p-4 rounded shadow mb-6"
     >
-        Obriši (uskoro)
+        <h2 className="text-xl font-bold mb-4">Izmena uređaja: {editingDevice.name}</h2>
+
+        <input
+            type="text"
+            className="border p-2 mb-2 w-full"
+            value={editingDevice.name}
+            onChange={(e) =>
+                setEditingDevice({ ...editingDevice, name: e.target.value })
+            }
+        />
+        <input
+            type="text"
+            className="border p-2 mb-2 w-full"
+            value={editingDevice.type}
+            onChange={(e) =>
+                setEditingDevice({ ...editingDevice, type: e.target.value })
+            }
+        />
+        <input
+            type="text"
+            className="border p-2 mb-4 w-full"
+            value={editingDevice.location}
+            onChange={(e) =>
+                setEditingDevice({ ...editingDevice, location: e.target.value })
+            }
+        />
+        <button
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded"
+        >
+            Sačuvaj izmene
+        </button>
+    </form>
+)}
+
+<div className="mb-4">
+    <label className="block font-bold mb-2">Изабери уређај за брисање:</label>
+    <select
+        className="border p-2 rounded w-full"
+        onChange={(e) => {
+            const selectedId = e.target.value;
+            const selectedDevice = devices.data.find(d => d.id == selectedId);
+            setDeviceToDelete(selectedDevice);
+        }}
+    >
+        <option value="">-- Изабери уређај --</option>
+        {devices.data.map(device => (
+            <option key={device.id} value={device.id}>
+                {device.name}
+            </option>
+        ))}
+    </select>
+</div>
+
+{deviceToDelete && (
+    <button
+        onClick={() => {
+            if (confirm(`Да ли сигурно желиш да обришеш "${deviceToDelete.name}"?`)) {
+                router.delete(route('devices.destroy', deviceToDelete.id), {
+                    onSuccess: () => setDeviceToDelete(null)
+                });
+            }
+        }}
+        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+    >
+        Обриши уређај
     </button>
+)}
+
+    
 </div>
 
 {showForm && (
@@ -107,6 +200,8 @@ const submit = (e) => {
                         <th className="p-2 border">Lokacija</th>
                         <th className="p-2 border">Konekcija</th>
                         <th className="p-2 border">Baterija</th>
+                        
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -117,6 +212,7 @@ const submit = (e) => {
                             <td className="p-2 border">{device.location}</td>
                             <td className="p-2 border">{device.connection_status}</td>
                             <td className="p-2 border">{device.battery_status}%</td>
+                            
                         </tr>
                     ))}
                 </tbody>
