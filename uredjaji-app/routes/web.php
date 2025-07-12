@@ -12,6 +12,7 @@ Route::resource('devices', DeviceController::class);
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/devices/{device}/batterychart', [DeviceController::class, 'batteryChart'])->name('devices.batterychart');
     Route::get('/devices/{device}/edit', [DeviceController::class, 'edit'])->name('devices.edit');
     Route::put('/devices/{device}', [DeviceController::class, 'update'])->name('devices.update');   
     Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create');

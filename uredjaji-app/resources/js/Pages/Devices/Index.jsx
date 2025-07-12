@@ -5,6 +5,8 @@ import { useForm } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
+import { Link } from '@inertiajs/react';
+
 
 export default function Index() {
     const { devices } = usePage().props;
@@ -133,7 +135,7 @@ const submit = (e) => {
 {deviceToDelete && (
     <button
         onClick={() => {
-            if (confirm(`Да ли сигурно желиш да обришеш "${deviceToDelete.name}"?`)) {
+            if (confirm(`Da li sigurno želiš da obrišeš? "${deviceToDelete.name}"?`)) {
                 router.delete(route('devices.destroy', deviceToDelete.id), {
                     onSuccess: () => setDeviceToDelete(null)
                 });
@@ -200,6 +202,7 @@ const submit = (e) => {
                         <th className="p-2 border">Lokacija</th>
                         <th className="p-2 border">Konekcija</th>
                         <th className="p-2 border">Baterija</th>
+                        <th className="p-2 border">Grafik</th>
                         
                         
                     </tr>
@@ -212,7 +215,15 @@ const submit = (e) => {
                             <td className="p-2 border">{device.location}</td>
                             <td className="p-2 border">{device.connection_status}</td>
                             <td className="p-2 border">{device.battery_status}%</td>
-                            
+                            <td className="p-2 border">
+                                    <Link
+                                        href={route('devices.batterychart', device.id)}
+                                        className="text-indigo-600 underline"
+                                    >
+                                        Baterija 24h
+                                    </Link>
+                                </td>
+
                         </tr>
                     ))}
                 </tbody>

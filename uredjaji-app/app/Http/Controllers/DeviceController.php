@@ -23,6 +23,25 @@ class DeviceController extends Controller
         ]);
     }
 
+    public function batteryChart(Device $device)
+{
+    if (!Auth::user()->devices->contains($device)) {
+        abort(403);
+    }
+
+    $chartData = collect(range(0, 23))->map(function ($hour) {
+        return [
+            'hour' => "{$hour}:00",
+            'battery' => rand(10, 100),
+        ];
+    });
+
+    return Inertia::render('Devices/BatteryChart', [
+        'device' => $device,
+        'chartData' => $chartData,
+    ]);
+}
+
     public function chart()
 {
     $userId = Auth::id();
