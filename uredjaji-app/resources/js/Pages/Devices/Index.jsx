@@ -112,7 +112,7 @@ const submit = (e) => {
 )}
 
 <div className="mb-4">
-    <label className="block font-bold mb-2">Изабери уређај за брисање:</label>
+    <label className="block font-bold mb-2">Izaberi uređaj za brisanje:</label>
     <select
         className="border p-2 rounded w-full"
         onChange={(e) => {
@@ -121,7 +121,7 @@ const submit = (e) => {
             setDeviceToDelete(selectedDevice);
         }}
     >
-        <option value="">-- Изабери уређај --</option>
+        <option value="">-- Izaberi uređaj --</option>
         {devices.data.map(device => (
             <option key={device.id} value={device.id}>
                 {device.name}
@@ -141,7 +141,7 @@ const submit = (e) => {
         }}
         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
     >
-        Обриши уређај
+        Obriši uređaj
     </button>
 )}
 

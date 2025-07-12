@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class DeviceController extends Controller
@@ -21,6 +22,22 @@ class DeviceController extends Controller
             'devices' => $devices
         ]);
     }
+
+    public function chart()
+{
+    $userId = Auth::id();
+
+    $chartData = DB::table('devices')
+        ->join('device_user', 'devices.id', '=', 'device_user.device_id')
+        ->where('device_user.user_id', $userId)
+        ->select('devices.type', DB::raw('count(*) as count'))
+        ->groupBy('devices.type')
+        ->get();
+
+    return Inertia::render('Devices/Chart', [
+        'chartData' => $chartData,
+    ]);
+}
 
     public function create()
     {

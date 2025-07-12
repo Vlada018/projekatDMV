@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "@inertiajs/inertia-react": "^0.8.1",
+        "recharts": "^3.1.0",
         "ziggy-js": "^2.5.3"
     }
 }

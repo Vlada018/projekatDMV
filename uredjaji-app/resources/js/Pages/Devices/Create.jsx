@@ -22,12 +22,12 @@ export default function DeviceCreate() {
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Додај нови уређај</h1>
+      <h1 className="text-2xl font-bold mb-4">Dodaj novi uređaj</h1>
 
       <form onSubmit={handleSubmit}>
 
         <div className="mb-4">
-          <label className="block mb-1 font-semibold">Назив</label>
+          <label className="block mb-1 font-semibold">Naziv</label>
           <input
             type="text"
             name="name"
@@ -39,7 +39,7 @@ export default function DeviceCreate() {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1 font-semibold">Тип</label>
+          <label className="block mb-1 font-semibold">Tip</label>
           <input
             type="text"
             name="type"
@@ -51,7 +51,7 @@ export default function DeviceCreate() {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1 font-semibold">Локација</label>
+          <label className="block mb-1 font-semibold">Lokacija</label>
           <input
             type="text"
             name="location"

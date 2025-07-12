@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\DeviceController;
 
+Route::get('/devices/chart', [DeviceController::class, 'chart'])->name('devices.chart');
+
 Route::resource('devices', DeviceController::class);
 
 Route::middleware(['auth'])->group(function () {

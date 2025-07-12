@@ -38,12 +38,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                    >
                                       Uređaji
                                     </NavLink>
-                                <NavLink
-                                   href={route('devices.create')}
-                                 active={route().current('devices.create')}
+                                    <NavLink
+                                   href={route('devices.chart')}
+                                 active={route().current('devices.chart')}
                                    >
-                                      Dodaj
+                                      Grafikon
                                     </NavLink>
+                                    
                             </div>
                         </div>
 
