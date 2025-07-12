@@ -251,6 +251,14 @@ const submit = (e) => {
                 Sledeća →
             </button>
         )}
+        <a
+        href={route('devices.export.csv')}
+        target="_blank"
+        className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+        >
+        Izvezi podatke у CSV
+        </a>
+
     </div>
 )}
 

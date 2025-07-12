@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
 class DeviceController extends Controller
@@ -22,6 +23,41 @@ class DeviceController extends Controller
             'devices' => $devices
         ]);
     }
+
+    public function exportCsv(): StreamedResponse
+{
+    $user = Auth::user();
+    $devices = $user->devices()->get();
+
+    $headers = [
+        "Content-type"        => "text/csv",
+        "Content-Disposition" => "attachment; filename=uredjaji.csv",
+        "Pragma"              => "no-cache",
+        "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+        "Expires"             => "0"
+    ];
+
+    $columns = ['Naziv', 'Tip', 'Lokacija', 'Status konekcije', 'Baterija'];
+
+    $callback = function () use ($devices, $columns) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
+
+        foreach ($devices as $device) {
+            fputcsv($file, [
+                $device->name,
+                $device->type,
+                $device->location,
+                $device->connection_status,
+                $device->battery_status . '%',
+            ]);
+        }
+
+        fclose($file);
+    };
+
+    return response()->stream($callback, 200, $headers);
+}
 
     public function batteryChart(Device $device)
 {
