@@ -9,7 +9,13 @@ export default function Chart() {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold mb-6">Grafikon: Broj uređaja po tipu</h1>
+            <Link
+                href={route('dashboard')}
+                className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                >
+                Nazad na početnu
+                </Link>
+            <h1 className="text-2xl font-bold my-6">Grafikon: Broj uređaja po tipu</h1>
 
             <div style={{ width: '100%', height: 400 }}>
                 <ResponsiveContainer>

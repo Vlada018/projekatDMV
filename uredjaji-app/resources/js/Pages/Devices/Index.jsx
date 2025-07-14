@@ -38,10 +38,20 @@ const submit = (e) => {
     });
 };
     return (
-        <div className="p-6">
-    <h1 className="text-2xl font-bold mb-4">Tvoji uređaji</h1>
+        
+    <div className="p-6">
+    
+      <h1 className="text-2xl font-bold mb-4">Tvoji uređaji:</h1>
 
-    <div className="flex gap-4 mb-4">
+    <Link
+    href={route('dashboard')}
+    className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+    >
+    Nazad na početnu
+    </Link>
+            
+
+    <div className="flex gap-4 my-4">
     <button
         onClick={() => setShowForm(!showForm)}
         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
@@ -228,6 +238,15 @@ const submit = (e) => {
                     ))}
                 </tbody>
             </table>
+            < div className="my-5">
+            <a
+        href={route('devices.export.csv')}
+        target="_blank"
+        className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+        >
+        Izvezi podatke у CSV
+        </a>
+            </div>
             {devices.total > devices.per_page && (
     <div className="mt-4 flex gap-4">
         {devices.prev_page_url && (
@@ -251,13 +270,6 @@ const submit = (e) => {
                 Sledeća →
             </button>
         )}
-        <a
-        href={route('devices.export.csv')}
-        target="_blank"
-        className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-        >
-        Izvezi podatke у CSV
-        </a>
 
     </div>
 )}

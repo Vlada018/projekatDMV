@@ -11,11 +11,11 @@ export default function BatteryChart() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Baterija uređaja: {device.name}</h1>
 
-      <Link href={route('devices.index')} className="text-blue-600 underline mb-4 inline-block">
+      <Link href={route('devices.index')}  className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">
         ← Nazad na uređaje
       </Link>
 
-      <div style={{ width: '100%', height: 400 }}>
+      <div style={{ width: '100%', height: 400 , marginTop:'20px'}}>
         <ResponsiveContainer>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />

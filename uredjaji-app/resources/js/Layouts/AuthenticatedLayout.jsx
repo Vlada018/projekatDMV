@@ -6,6 +6,8 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
 
+
+
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
 
@@ -42,7 +44,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                    href={route('devices.chart')}
                                  active={route().current('devices.chart')}
                                    >
-                                      Grafikon
+                                      Grafikon - Broj uređaja po tipu
                                     </NavLink>
                                     
                             </div>
