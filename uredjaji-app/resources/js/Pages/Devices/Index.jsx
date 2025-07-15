@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 
 
+
 export default function Index() {
     const { devices } = usePage().props;
 
@@ -25,7 +26,7 @@ const [showForm, setShowForm] = useState(false);
 const [editingDevice, setEditingDevice] = useState(null);
 
 const [deviceToDelete, setDeviceToDelete] = useState(null);
-
+const { flash } = usePage().props;
 
 
 const submit = (e) => {
@@ -40,6 +41,12 @@ const submit = (e) => {
     return (
         
     <div className="p-6">
+
+     {flash?.success && (
+  <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+    {flash.success}
+  </div>
+)}
     
       <h1 className="text-2xl font-bold mb-4">Tvoji uređaji:</h1>
 
@@ -58,6 +65,7 @@ const submit = (e) => {
     >
         {showForm ? 'Zatvori formu' : 'Dodaj uređaj'}
     </button>
+    
     <div className="mb-4">
     <label className="block font-bold mb-2">Izaberi uređaj za izmenu:</label>
     <select

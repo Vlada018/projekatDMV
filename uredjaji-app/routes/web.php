@@ -12,12 +12,10 @@ Route::resource('devices', DeviceController::class);
 
 Route::middleware(['auth'])->group(function () {
 
-   Route::get('/dashboard', function () {return Inertia::render('Dashboard');})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', function () {return Inertia::render('Dashboard');})->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('/devices/export/csv', [DeviceController::class, 'exportCsv'])->name('devices.export.csv')->middleware('auth');
     Route::get('/devices/{device}/batterychart', [DeviceController::class, 'batteryChart'])->name('devices.batterychart');
-    Route::get('/devices/{device}/edit', [DeviceController::class, 'edit'])->name('devices.edit');
     Route::put('/devices/{device}', [DeviceController::class, 'update'])->name('devices.update');   
-    Route::get('/devices/create', [DeviceController::class, 'create'])->name('devices.create');
     Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
     Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store'); 
 });
