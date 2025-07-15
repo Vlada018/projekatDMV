@@ -9,17 +9,14 @@ use App\Models\Device;
 
 class DeviceSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-          $types = ['radar', 'semafor', 'kamera', 'meteo stanica'];
-        $locations = ['Nis', 'Beograd', 'Kragujevac', 'Subotica'];
+        $types = ['radar', 'semafor', 'kamera', 'meteo stanica'];
+        $locations = ['Niš', 'Beograd', 'Kragujevac', 'Subotica'];
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 36; $i++) {
             Device::create([
-                'name' => 'Uredjaj-' . $i,
+                'name' => 'Uređaj-' . $i,
                 'type' => $types[array_rand($types)],
                 'location' => $locations[array_rand($locations)],
                 'connection_status' => rand(0, 1) ? 'online' : 'offline',

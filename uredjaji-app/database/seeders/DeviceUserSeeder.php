@@ -10,15 +10,15 @@ use App\Models\Device;
 
 class DeviceUserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-         $user = User::first(); // Uzima prvog korisnika
+        $users = User::all();
         $devices = Device::all();
 
-        // Povezuje korisnika sa svim uređajima
-        $user->devices()->sync($devices->pluck('id')->toArray());
+        foreach ($users as $index => $user) {
+            $start = $index * 12;
+            $userDevices = $devices->slice($start, 12);
+            $user->devices()->attach($userDevices->pluck('id')->toArray());
+        }
     }
 }
